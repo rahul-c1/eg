@@ -20,8 +20,7 @@ library(viridis)  # Added for viridis color scales
 
 # Load data from CSV file with error handling
 tryCatch({
-  trading_data <- data.table::fread("C://Users/rahul/Documents/weeklyprocess/weekly/data/latest_metrics_2025_09_30.csv")
-  #trading_data <- data.table::fread("latest_metrics.csv")
+  trading_data <- data.table::fread("latest_metrics.csv")
   }, error = function(e) {
   # Create sample data if file doesn't exist
   set.seed(123)
@@ -1195,4 +1194,5 @@ server <- function(input, output, session) {
 }
 
 # Run the app
+
 shinyApp(ui, server)
