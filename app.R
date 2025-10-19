@@ -179,7 +179,7 @@ ui <- dashboardPage(
     sidebarMenu(
       id = "sidebar",
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard"), 
-               badgeLabel = "Start", badgeColor = "primary"),
+               badgeLabel = "Start", badgeColor = "olive"),
       menuItem("Screening", icon = icon("filter"), startExpanded = FALSE,
                menuSubItem("Stock Screener", tabName = "screener"),
                menuSubItem("Advanced Filters", tabName = "filters")
@@ -194,7 +194,7 @@ ui <- dashboardPage(
                menuSubItem("Sector Analysis", tabName = "sector")
       ),
       menuItem("Stock Comparison", tabName = "comparison", icon = icon("balance-scale"),
-               badgeLabel = "New", badgeColor = "secondary"),
+               badgeLabel = "New", badgeColor = "light-blue"),
       menuItem("Data Explorer", tabName = "data", icon = icon("database")),
       
       # Global date range filter
@@ -2028,3 +2028,4 @@ server <- function(input, output, session) {
 
 # Run the app
 shinyApp(ui, server)
+
