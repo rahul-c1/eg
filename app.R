@@ -898,7 +898,7 @@ server <- function(input, output, session) {
       value = format(length(unique(current_data()$symbol)), big.mark = ","),
       subtitle = "Total Stocks",
       icon = icon("list"),
-      color = "primary"
+      color = "olive"
     )
   })
   
@@ -908,7 +908,7 @@ server <- function(input, output, session) {
       value = avg_perf,
       subtitle = "Avg Performance Score",
       icon = icon("chart-line"),
-      color = if(avg_perf >= 60) "success" else if(avg_perf >= 40) "warning" else "danger"
+      color = if(avg_perf >= 60) "success" else if(avg_perf >= 40) "cyan" else "red"
     )
   })
   
@@ -1094,7 +1094,7 @@ server <- function(input, output, session) {
       "Filtered Stocks"
     }
     
-    valueBox(value = count, subtitle = subtitle_text, icon = icon("filter"), color = "primary")
+    valueBox(value = count, subtitle = subtitle_text, icon = icon("filter"), color = "olive")
   })
   
   output$avg_performance <- renderValueBox({
@@ -1124,7 +1124,7 @@ server <- function(input, output, session) {
         )
       ),
       icon = icon("chart-line"),
-      color = if(avg_perf >= 70) "success" else if(avg_perf >= 50) "warning" else "danger"
+      color = if(avg_perf >= 70) "success" else if(avg_perf >= 50) "cyan" else "orange"
     )
   })
   
@@ -1136,7 +1136,7 @@ server <- function(input, output, session) {
       data <- filtered_data()
       if(nrow(data) > 0) data$symbol[1] else "None"
     }
-    valueBox(value = top_stock, subtitle = "Top Performer", icon = icon("trophy"), color = "warning")
+    valueBox(value = top_stock, subtitle = "Top Performer", icon = icon("trophy"), color = "cyan")
   })
   
   # Screener table with export buttons
@@ -1405,7 +1405,7 @@ server <- function(input, output, session) {
   
   output$total_stocks <- renderValueBox({
     valueBox(value = format(length(unique(current_data()$symbol)), big.mark = ","), 
-             subtitle = "Total Stocks", icon = icon("list"), color = "primary")
+             subtitle = "Total Stocks", icon = icon("list"), color = "olive")
   })
   
   output$filtered_top_count <- renderValueBox({
@@ -2028,4 +2028,5 @@ server <- function(input, output, session) {
 
 # Run the app
 shinyApp(ui, server)
+
 
