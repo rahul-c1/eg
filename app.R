@@ -18,7 +18,7 @@ library(viridis)
 
 # Load data with error handling
 tryCatch({
-  trading_data <- data.table::fread("latest_metrics_sectors.csv")
+  trading_data <- data.table::fread("latest_metrics_select_symbols.csv")
 }, error = function(e) {
   set.seed(123)
   n_stocks <- 1000
@@ -2028,6 +2028,7 @@ server <- function(input, output, session) {
 
 # Run the app
 shinyApp(ui, server)
+
 
 
 
