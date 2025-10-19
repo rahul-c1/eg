@@ -22,7 +22,7 @@ tryCatch({
 }, error = function(e) {
   set.seed(123)
   n_stocks <- 1000
-  dates <- seq(as.Date("2024-01-01"), as.Date("2025-12-31"), by = "day")
+  dates <- seq(as.Date("2024-01-01"), as.Date("2025-09-19"), by = "day")
   trading_data <- data.table()
   
   for(i in 1:n_stocks) {
@@ -179,7 +179,7 @@ ui <- dashboardPage(
     sidebarMenu(
       id = "sidebar",
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard"), 
-               badgeLabel = "Start", badgeColor = "olive"),
+               badgeLabel = "Start", badgeColor = "green"),
       menuItem("Screening", icon = icon("filter"), startExpanded = FALSE,
                menuSubItem("Stock Screener", tabName = "screener"),
                menuSubItem("Advanced Filters", tabName = "filters")
@@ -194,7 +194,7 @@ ui <- dashboardPage(
                menuSubItem("Sector Analysis", tabName = "sector")
       ),
       menuItem("Stock Comparison", tabName = "comparison", icon = icon("balance-scale"),
-               badgeLabel = "New", badgeColor = "light-blue"),
+               badgeLabel = "New", badgeColor = "blue"),
       menuItem("Data Explorer", tabName = "data", icon = icon("database")),
       
       # Global date range filter
@@ -1216,7 +1216,7 @@ server <- function(input, output, session) {
             div(class = "comparison-metric",
                 span(class = "metric-label", "Performance Score:"),
                 span(class = "metric-value", style = paste0("color: ", 
-                                                            if(stock$performance_score >= 70) "#27AE60" else if(stock$performance_score >= 50) "#F39C12" else "#E74C3C"),
+                     if(stock$performance_score >= 70) "#27AE60" else if(stock$performance_score >= 50) "#F39C12" else "#E74C3C"),
                      round(stock$performance_score, 1))
             ),
             div(class = "comparison-metric",
@@ -1451,8 +1451,8 @@ server <- function(input, output, session) {
       p <- p + scale_fill_brewer(palette = "Spectral")
     } else {
       p <- p + scale_fill_manual(values = c("Excellent" = "#2ecc71", "Good" = "#3498db", 
-                                            "Average" = "#f39c12", "Below Average" = "#e67e22", 
-                                            "Poor" = "#e74c3c"))
+                                              "Average" = "#f39c12", "Below Average" = "#e67e22", 
+                                              "Poor" = "#e74c3c"))
     }
     
     ggplotly(p, tooltip = c("x", "y", "fill")) %>% theme_trading_plotly()
@@ -1489,7 +1489,7 @@ server <- function(input, output, session) {
   
   output$price_performance_scatter <- renderPlotly({
     data_to_plot <- if(input$apply_top_filters == 0) {
-      current_data() %>% arrange(desc(performance_score)) %>% head(500)
+      current_data() %>% arrange(desc(performance_score)) #%>% head(500)
     } else {
       data <- current_data() %>%
         filter(
@@ -1507,8 +1507,8 @@ server <- function(input, output, session) {
     
     p <- plot_ly(data_to_plot, x = ~close, y = ~performance_score, color = ~performance_category,
                  colors = c("Excellent" = "#2ecc71", "Good" = "#3498db", 
-                            "Average" = "#f39c12", "Below Average" = "#e67e22", 
-                            "Poor" = "#e74c3c"),
+                           "Average" = "#f39c12", "Below Average" = "#e67e22", 
+                           "Poor" = "#e74c3c"),
                  size = ~volume, sizes = c(5, 50),
                  text = ~paste("Symbol:", symbol,
                                "<br>Price:", round(close, 2),
@@ -1523,7 +1523,7 @@ server <- function(input, output, session) {
   
   output$volume_performance_scatter <- renderPlotly({
     data_to_plot <- if(input$apply_top_filters == 0) {
-      current_data() %>% arrange(desc(performance_score)) #%>% head(500)
+      current_data() %>% arrange(desc(performance_score)) %>% head(500)
     } else {
       data <- current_data() %>%
         filter(
@@ -1760,8 +1760,8 @@ server <- function(input, output, session) {
     p <- plot_ly(vol_data, x = ~roc_diff, y = ~performance_score, 
                  color = ~performance_category,
                  colors = c("Excellent" = "#2ecc71", "Good" = "#3498db", 
-                            "Average" = "#f39c12", "Below Average" = "#e67e22", 
-                            "Poor" = "#e74c3c"),
+                           "Average" = "#f39c12", "Below Average" = "#e67e22", 
+                           "Poor" = "#e74c3c"),
                  text = ~paste("Symbol:", symbol,
                                "<br>ROC Diff:", round(roc_diff, 2),
                                "<br>Performance:", round(performance_score, 1)),
@@ -2028,4 +2028,3 @@ server <- function(input, output, session) {
 
 # Run the app
 shinyApp(ui, server)
-
