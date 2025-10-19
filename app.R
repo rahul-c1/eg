@@ -908,7 +908,7 @@ server <- function(input, output, session) {
       value = avg_perf,
       subtitle = "Avg Performance Score",
       icon = icon("chart-line"),
-      color = if(avg_perf >= 60) "success" else if(avg_perf >= 40) "aqua" else "orange"
+      color = if(avg_perf >= 60) "teal" else if(avg_perf >= 40) "aqua" else "orange"
     )
   })
   
@@ -1124,7 +1124,7 @@ server <- function(input, output, session) {
         )
       ),
       icon = icon("chart-line"),
-      color = if(avg_perf >= 70) "success" else if(avg_perf >= 50) "aqua" else "orange"
+      color = if(avg_perf >= 70) "teal" else if(avg_perf >= 50) "aqua" else "orange"
     )
   })
   
@@ -1414,7 +1414,7 @@ server <- function(input, output, session) {
     } else {
       nrow(top_performers_filtered())
     }
-    valueBox(value = count, subtitle = "Filtered Top Stocks", icon = icon("filter"), color = "success")
+    valueBox(value = count, subtitle = "Filtered Top Stocks", icon = icon("filter"), color = "teal")
   })
   
   output$avg_filtered_score <- renderValueBox({
@@ -2028,6 +2028,7 @@ server <- function(input, output, session) {
 
 # Run the app
 shinyApp(ui, server)
+
 
 
 
