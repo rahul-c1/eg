@@ -908,7 +908,7 @@ server <- function(input, output, session) {
       value = avg_perf,
       subtitle = "Avg Performance Score",
       icon = icon("chart-line"),
-      color = if(avg_perf >= 60) "success" else if(avg_perf >= 40) "cyan" else "red"
+      color = if(avg_perf >= 60) "success" else if(avg_perf >= 40) "aqua" else "orange"
     )
   })
   
@@ -1124,7 +1124,7 @@ server <- function(input, output, session) {
         )
       ),
       icon = icon("chart-line"),
-      color = if(avg_perf >= 70) "success" else if(avg_perf >= 50) "cyan" else "orange"
+      color = if(avg_perf >= 70) "success" else if(avg_perf >= 50) "aqua" else "orange"
     )
   })
   
@@ -1136,7 +1136,7 @@ server <- function(input, output, session) {
       data <- filtered_data()
       if(nrow(data) > 0) data$symbol[1] else "None"
     }
-    valueBox(value = top_stock, subtitle = "Top Performer", icon = icon("trophy"), color = "cyan")
+    valueBox(value = top_stock, subtitle = "Top Performer", icon = icon("trophy"), color = "aqua")
   })
   
   # Screener table with export buttons
@@ -2028,5 +2028,6 @@ server <- function(input, output, session) {
 
 # Run the app
 shinyApp(ui, server)
+
 
 
