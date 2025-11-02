@@ -1489,7 +1489,7 @@ server <- function(input, output, session) {
   
   output$price_performance_scatter <- renderPlotly({
     data_to_plot <- if(input$apply_top_filters == 0) {
-      current_data() %>% arrange(desc(performance_score)) %>% head(500)
+      current_data() %>% arrange(desc(performance_score)) #%>% head(500)
     } else {
       data <- current_data() %>%
         filter(
@@ -1500,7 +1500,8 @@ server <- function(input, output, session) {
       if (input$perf_category_filter != "All") {
         data <- data %>% filter(performance_category == input$perf_category_filter)
       }
-      head(data, 500)
+      #head(data, 500)
+      data
     }
     
     if (nrow(data_to_plot) == 0) return(plotly_empty())
@@ -1683,8 +1684,8 @@ server <- function(input, output, session) {
   output$volume_performance <- renderPlotly({
     vol_perf_data <- current_data() %>%
       filter(!is.na(volume), !is.na(performance_score), !is.na(roc_ytd)) %>%
-      arrange(desc(performance_score)) %>%
-      head(500)
+      arrange(desc(performance_score)) #%>%
+      #head(500)
     
     if(nrow(vol_perf_data) == 0) return(plotly_empty())
     
@@ -1728,8 +1729,8 @@ server <- function(input, output, session) {
   # Risk Analysis
   output$efficient_frontier <- renderPlotly({
     risk_data <- current_data() %>%
-      filter(!is.na(risk_adjusted_score), !is.na(roc_ytd), !is.na(volatility_proxy)) %>%
-      head(500)
+      filter(!is.na(risk_adjusted_score), !is.na(roc_ytd), !is.na(volatility_proxy)) #%>%
+      #head(500)
     
     if(nrow(risk_data) == 0) return(plotly_empty())
     
@@ -1752,7 +1753,7 @@ server <- function(input, output, session) {
     vol_data <- current_data() %>%
       filter(!is.na(roc5), !is.na(roc10)) %>%
       arrange(desc(performance_score)) %>%
-      head(500) %>%
+      #head(500) %>%
       mutate(roc_diff = abs(roc5 - roc10))
     
     if(nrow(vol_data) == 0) return(plotly_empty())
@@ -2028,6 +2029,7 @@ server <- function(input, output, session) {
 
 # Run the app
 shinyApp(ui, server)
+
 
 
 
